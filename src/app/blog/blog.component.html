@@ -1,0 +1,25 @@
+<div class="container text-center" *ngIf="loading">
+  <p>Loading...</p>
+</div>
+
+<div class="container" *ngIf="!loading">
+  <div class="panel panel-default" *ngFor="let post of blogPage.items">
+    <div class="panel-heading">
+      <div class="col-xs-4"><h2 class="panel-title">{{post.title}}</h2></div>
+      <div class="col-xs-4 text-center">{{post.timestamp}}</div>
+      <div class="col-xs-4 pull-right text-right"><a href="#//blog/{{post.id}}">Lees meer</a></div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body" Markdown>
+      {{post.body}}
+    </div>
+  </div>
+  <ul class="pager" *ngIf="!loading">
+    <li class="previous" [ngClass]="{disabled:!blogPage.hasPrev}">
+      <a href="javascript:void(0)" (click)="setPage(blogPage.prev_num)">Vorige</a>
+    </li>
+    <li class="next" [ngClass]="{disabled:!blogPage.hasNext}">
+      <a href="javascript:void(0)" (click)="setPage(blogPage.next_num)">Volgende</a>
+    </li>
+  </ul>
+</div>

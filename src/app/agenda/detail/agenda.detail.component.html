@@ -1,0 +1,18 @@
+<div class="container text-center" *ngIf="loading">
+  <p>Loading...</p>
+</div>
+
+<div class="container" *ngIf="!loading">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="col-xs-4"><h2 class="panel-title">{{event.title}}</h2></div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body" Markdown>{{event.description}}</div>
+    <div class="panel-footer">
+      <div class="col-xs-4"><strong>Starts:</strong> {{event.start}}</div>
+      <div class="col-xs-4 pull-right text-right"><strong>Ends:</strong> {{event.end}}</div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
