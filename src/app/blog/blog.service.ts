@@ -10,8 +10,8 @@ export class BlogService {
   }
 
   getPosts(pageNr) {
-    const request_header = new Headers();
-    request_header.set('accept', 'application/json');
+    const requestHeader = new Headers();
+    requestHeader.set('accept', 'application/json');
 
     const searchParams = new URLSearchParams();
     searchParams.set('page', pageNr);
@@ -19,7 +19,7 @@ export class BlogService {
     return this.http.get(
       environment.backEndUrl + '/post',
       {
-        headers: request_header,
+        headers: requestHeader,
         search: searchParams
       }
     ).map((res) => res.json());
