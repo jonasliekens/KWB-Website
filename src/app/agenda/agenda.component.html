@@ -3,6 +3,17 @@
 </div>
 
 <div class="container" *ngIf="!loading">
+
+  <div class="panel panel-default" *ngIf="agendaPage.pages === 0">
+    <div class="panel-heading">
+      <div class="panel-title">Geen activiteiten!</div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      Er zijn voorlopig geen activiteiten meer gepland!
+    </div>
+  </div>
+
   <div class="panel panel-default" *ngFor="let event of agendaPage.items">
     <div class="panel-heading">
       <div class="col-xs-4"><h2 class="panel-title">{{event.title}}</h2></div>
@@ -15,7 +26,7 @@
       {{event.description}}
     </div>
   </div>
-  <ul class="pager" *ngIf="!loading">
+  <ul class="pager" *ngIf="agendaPage.pages !== 0">
     <li class="previous" [ngClass]="{disabled:!agendaPage.hasPrev}">
       <a href="javascript:void(0)" (click)="setPage(agendaPage.prev_num)">Vorige</a>
     </li>

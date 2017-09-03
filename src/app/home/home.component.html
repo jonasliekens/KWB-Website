@@ -68,18 +68,18 @@
 <div class="container">
   <div class="panel panel-default" *ngIf="postLoading">
     <div class="panel-heading">
-      <div class="panel-title pull-left"><strong>Laatste Niewus</strong></div>
-      <div class="pull-right text-right">{{latestPost.timestamp}}</div>
+      <div class="panel-title pull-left"><strong>Laatste Nieuws</strong></div>
       <div class="clearfix"></div>
     </div>
-    <div class="panel-body" Markdown>
-      {{latestPost.body}}
+    <div class="panel-body">
+      Loading...
     </div>
   </div>
 
   <div class="panel panel-default" *ngIf="!postLoading">
     <div class="panel-heading">
-      <div class="panel-title pull-left"><strong>Laatste Niewus</strong>: {{latestPost.title}}</div>
+      <div class="panel-title pull-left"><strong>Laatste Nieuws</strong>: {{latestPost
+        .title}}</div>
       <div class="pull-right text-right">{{latestPost.timestamp}}</div>
       <div class="clearfix"></div>
     </div>

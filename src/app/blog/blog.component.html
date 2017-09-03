@@ -3,6 +3,16 @@
 </div>
 
 <div class="container" *ngIf="!loading">
+  <div class="panel panel-default" *ngIf="blogPage.pages === 0">
+    <div class="panel-heading">
+      <div class="panel-title">Geen Nieuws!</div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      Er zijn voorlopig nog geen blog posts!
+    </div>
+  </div>
+
   <div class="panel panel-default" *ngFor="let post of blogPage.items">
     <div class="panel-heading">
       <div class="col-xs-4"><h2 class="panel-title">{{post.title}}</h2></div>
@@ -14,7 +24,7 @@
       {{post.body}}
     </div>
   </div>
-  <ul class="pager" *ngIf="!loading">
+  <ul class="pager"  *ngIf="blogPage.pages !== 0">
     <li class="previous" [ngClass]="{disabled:!blogPage.hasPrev}">
       <a href="javascript:void(0)" (click)="setPage(blogPage.prev_num)">Vorige</a>
     </li>
