@@ -56,7 +56,7 @@
       <div class="panel-title pull-left">
         <strong>Volgende activiteit:</strong> {{ nextEvent.title }}
       </div>
-      <div class="panel-title pull-right">{{ nextEvent.date }}</div>
+      <div class="panel-title pull-right"><a href="#/activiteit/{{ nextEvent.id }}">Details</a></div>
       <div class="clearfix"></div>
     </div>
     <div class="panel-body" Markdown>
@@ -78,9 +78,7 @@
 
   <div class="panel panel-default" *ngIf="!postLoading">
     <div class="panel-heading">
-      <div class="panel-title pull-left"><strong>Laatste Nieuws</strong>: {{latestPost
-        .title}}</div>
-      <div class="pull-right text-right">{{latestPost.timestamp}}</div>
+      <div class="panel-title pull-left"><strong>Laatste Nieuws</strong>: {{latestPost.title}}</div>
       <div class="clearfix"></div>
     </div>
     <div class="panel-body" Markdown>
