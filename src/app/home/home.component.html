@@ -56,7 +56,9 @@
       <div class="panel-title pull-left">
         <strong>Volgende activiteit:</strong> {{ nextEvent.title }}
       </div>
-      <div class="panel-title pull-right"><a href="#/activiteit/{{ nextEvent.id }}">Details</a></div>
+      <div class="panel-title pull-right">
+        <a href="#/activiteit/{{ nextEvent.id }}" *ngIf="nextEvent.id">Details</a>
+      </div>
       <div class="clearfix"></div>
     </div>
     <div class="panel-body" Markdown>
