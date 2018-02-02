@@ -1,34 +1,22 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http} from '@angular/http';
 import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class HomeService {
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
 
     }
 
     getLatestPosts() {
-        const requestHeader = new Headers();
-        requestHeader.set('accept', 'application/json');
-
         return this.http.get(
-            environment.backEndUrl + '/post/latest',
-            {
-                headers: requestHeader
-            }
-        ).map((res) => res.json());
+            environment.backEndUrl + '/post/latest'
+        );
     }
 
     getNextEvent() {
-        const requestHeader = new Headers();
-        requestHeader.set('accept', 'application/json');
-
         return this.http.get(
-            environment.backEndUrl + '/event/next',
-            {
-                headers: requestHeader
-            }
-        ).map((res) => res.json());
+            environment.backEndUrl + '/event/next'
+        );
     }
 }

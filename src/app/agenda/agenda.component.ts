@@ -11,6 +11,7 @@ export class AgendaComponent implements OnInit {
   currentPage = 1;
 
   constructor(private agendaService: AgendaService) {
+    this.getEvents();
   }
 
   setPage(pageNr): void {

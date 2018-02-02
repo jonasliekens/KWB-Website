@@ -1,27 +1,27 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, URLSearchParams} from '@angular/http';
 import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/toPromise';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class BlogService {
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
 
   }
 
   getPosts(pageNr) {
-    const requestHeader = new Headers();
+    const requestHeader = new HttpHeaders();
     requestHeader.set('accept', 'application/json');
 
-    const searchParams = new URLSearchParams();
+    const searchParams = new HttpParams();
     searchParams.set('page', pageNr);
 
     return this.http.get(
       environment.backEndUrl + '/post',
       {
         headers: requestHeader,
-        search: searchParams
+        params: searchParams
       }
-    ).map((res) => res.json());
+    );
   }
 }

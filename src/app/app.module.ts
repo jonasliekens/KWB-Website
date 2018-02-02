@@ -1,14 +1,13 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {AboutComponent} from './about/about.component';
 import {BestuurComponent} from './bestuur/bestuur.component';
-import {BsDropdownModule, CarouselModule, CollapseDirective} from 'ngx-bootstrap';
+import {BsDropdownModule, CarouselModule, CollapseModule} from 'ngx-bootstrap';
 import {InfoComponent} from './info/info.component';
 import {LidComponent} from './lid/lid.component';
 import {ProgrammaComponent} from './programma/programma.component';
@@ -18,6 +17,7 @@ import {BlogDetailComponent} from './blog/detail/blog.detail.component';
 import {MarkdownModule} from 'angular2-markdown';
 import {AgendaComponent} from './agenda/agenda.component';
 import {AgendaDetailComponent} from './agenda/detail/agenda.detail.component';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -37,7 +37,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    CollapseDirective,
     HomeComponent,
     BestuurComponent,
     InfoComponent,
@@ -53,8 +52,9 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
     CarouselModule.forRoot(),
     MarkdownModule.forRoot(),
     RouterModule.forRoot(

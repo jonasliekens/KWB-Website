@@ -1,17 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http} from '@angular/http';
 import {environment} from '../../../environments/environment';
 import 'rxjs/add/operator/toPromise';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class AgendaDetailService {
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
-  getEvent(event_id) {
-    const request_header = new Headers();
-    request_header.set('accept', 'application/json');
-
-    return this.http.get(environment.backEndUrl + '/event/' + event_id, {headers: request_header}).map((res) => res.json());
+  getEvent(eventId) {
+    return this.http.get(environment.backEndUrl + '/event/' + eventId);
   }
 }

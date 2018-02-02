@@ -1,18 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http} from '@angular/http';
-import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/toPromise';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class UserService {
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   getUsers() {
-    const request_header = new Headers();
-    request_header.set('accept', 'application/json');
-
-    // return this.http.get(environment.backEndUrl + '/user', {headers: request_header}).map((res) => res.json());
-    return this.http.get('assets/data/bestuur.json').map((res: any) => res.json());
+    return this.http.get('assets/data/bestuur.json');
   }
 }

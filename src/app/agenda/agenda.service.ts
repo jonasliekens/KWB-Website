@@ -1,20 +1,19 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, URLSearchParams} from '@angular/http';
 import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/toPromise';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import * as moment from 'moment';
 
 @Injectable()
 export class AgendaService {
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   getEvents(pageNr) {
-    const request_header = new Headers();
-    request_header.set('accept', 'application/json');
+    const searchParams = new HttpParams()
+        .set('page', pageNr)
+        .set('fromDate', moment().format('DD/MM/YYYY'));
 
-    const searchParams = new URLSearchParams();
-    searchParams.set('page', pageNr);
-
-    return this.http.get(environment.backEndUrl + '/event', {headers: request_header, search: searchParams}).map((res) => res.json());
+    return this.http.get(environment.backEndUrl + '/event', { params: searchParams });
   }
 }

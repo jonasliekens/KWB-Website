@@ -1,23 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, URLSearchParams} from '@angular/http';
 import {environment} from '../../../environments/environment';
 import 'rxjs/add/operator/toPromise';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class BlogDetailService {
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
 
   }
 
-  getPost(post_id) {
-    const request_header = new Headers();
-    request_header.set('accept', 'application/json');
-
+  getPost(postId) {
     return this.http.get(
-      environment.backEndUrl + '/post/' + post_id,
-      {
-        headers: request_header
-      }
-    ).map((res) => res.json());
+      environment.backEndUrl + '/post/' + postId,
+    );
   }
 }
