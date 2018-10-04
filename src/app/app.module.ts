@@ -18,55 +18,58 @@ import {MarkdownModule} from 'angular2-markdown';
 import {AgendaComponent} from './agenda/agenda.component';
 import {AgendaDetailComponent} from './agenda/detail/agenda.detail.component';
 import {HttpClientModule} from '@angular/common/http';
+import {VolleybalComponent} from './volleybal/volleybal.component';
 
 const appRoutes: Routes = [
-  {path: 'home', component: HomeComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'bestuur', component: BestuurComponent},
-  {path: 'about', component: AboutComponent},
-  {path: 'info', component: InfoComponent},
-  {path: 'lidmaatschap', component: LidComponent},
-  {path: 'activiteit', component: AgendaComponent},
-  {path: 'activiteit/:id', component: AgendaDetailComponent},
-  {path: 'programma', component: ProgrammaComponent},
-  {path: 'raak', component: RaakComponent},
-  {path: 'blog', component: BlogComponent},
-  {path: 'blog/:id', component: BlogDetailComponent}
+    {path: 'home', component: HomeComponent},
+    {path: '', redirectTo: '/home', pathMatch: 'full'},
+    {path: 'bestuur', component: BestuurComponent},
+    {path: 'about', component: AboutComponent},
+    {path: 'info', component: InfoComponent},
+    {path: 'lidmaatschap', component: LidComponent},
+    {path: 'activiteit', component: AgendaComponent},
+    {path: 'activiteit/:id', component: AgendaDetailComponent},
+    {path: 'programma', component: ProgrammaComponent},
+    {path: 'volleybal', component: VolleybalComponent},
+    {path: 'raak', component: RaakComponent},
+    {path: 'blog', component: BlogComponent},
+    {path: 'blog/:id', component: BlogDetailComponent}
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    BestuurComponent,
-    InfoComponent,
-    LidComponent,
-    AboutComponent,
-    AgendaComponent,
-    AgendaDetailComponent,
-    ProgrammaComponent,
-    RaakComponent,
-    BlogComponent,
-    BlogDetailComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    BsDropdownModule.forRoot(),
-    CollapseModule.forRoot(),
-    CarouselModule.forRoot(),
-    MarkdownModule.forRoot(),
-    RouterModule.forRoot(
-      appRoutes,
-      {
-        // enableTracing: true,
-        useHash: true
-      }
-    )
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        BestuurComponent,
+        InfoComponent,
+        LidComponent,
+        AboutComponent,
+        AgendaComponent,
+        AgendaDetailComponent,
+        ProgrammaComponent,
+        VolleybalComponent,
+        RaakComponent,
+        BlogComponent,
+        BlogDetailComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        BsDropdownModule.forRoot(),
+        CollapseModule.forRoot(),
+        CarouselModule.forRoot(),
+        MarkdownModule.forRoot(),
+        RouterModule.forRoot(
+            appRoutes,
+            {
+                // enableTracing: true,
+                useHash: true
+            }
+        )
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
