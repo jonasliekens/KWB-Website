@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    backEndUrl: 'http://149.210.165.148/kwb/api/1_0'
+    backEndUrl: 'http://kwb.diamondstreet.be/api/1_0'
 };
