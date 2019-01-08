@@ -14,7 +14,6 @@ import {ProgrammaComponent} from './programma/programma.component';
 import {RaakComponent} from './raak/raak.component';
 import {BlogComponent} from './blog/blog.component';
 import {BlogDetailComponent} from './blog/detail/blog.detail.component';
-import {MarkdownModule} from 'angular2-markdown';
 import {AgendaComponent} from './agenda/agenda.component';
 import {AgendaDetailComponent} from './agenda/detail/agenda.detail.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -59,7 +58,6 @@ const appRoutes: Routes = [
         BsDropdownModule.forRoot(),
         CollapseModule.forRoot(),
         CarouselModule.forRoot(),
-        MarkdownModule.forRoot(),
         RouterModule.forRoot(
             appRoutes,
             {
