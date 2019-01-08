@@ -22,8 +22,7 @@
         class="col-xs-4 pull-right text-right"><a href="#/activiteit/{{event.id}}">Details</a></div>
       <div class="clearfix"></div>
     </div>
-    <div class="panel-body" Markdown>
-      {{event.description}}
+    <div class="panel-body" markdown [data]="event.description">
     </div>
   </div>
   <ul class="pager" *ngIf="agendaPage.pages !== 0">

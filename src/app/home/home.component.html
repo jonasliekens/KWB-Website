@@ -61,9 +61,7 @@
       </div>
       <div class="clearfix"></div>
     </div>
-    <div class="panel-body" Markdown>
-      {{ nextEvent.description }}
-    </div>
+    <div class="panel-body" markdown [data]="nextEvent.description"></div>
   </div>
 </div>
 
@@ -83,8 +81,6 @@
       <div class="panel-title pull-left"><strong>Laatste Nieuws</strong>: {{latestPost.title}}</div>
       <div class="clearfix"></div>
     </div>
-    <div class="panel-body" Markdown>
-      {{latestPost.body}}
-    </div>
+    <div class="panel-body" markdown [data]="latestPost.body"></div>
   </div>
 </div>
