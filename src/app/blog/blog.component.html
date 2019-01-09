@@ -1,34 +1,23 @@
-<div class="container text-center" *ngIf="loading">
-  <p>Loading...</p>
-</div>
+<div class="container">
+    <div class="panel panel-default" *ngIf="(posts | async)?.length === 0">
+        <div class="panel-heading">
+            <div class="panel-title">Geen Nieuws!</div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+            Er zijn voorlopig nog geen blog posts!
+        </div>
+    </div>
 
-<div class="container" *ngIf="!loading">
-  <div class="panel panel-default" *ngIf="blogPage.pages === 0">
-    <div class="panel-heading">
-      <div class="panel-title">Geen Nieuws!</div>
-      <div class="clearfix"></div>
+    <div class="panel panel-default" *ngFor="let post of posts | async">
+        <div class="panel-heading">
+            <div class="col-xs-4"><h2 class="panel-title">{{post.title}}</h2></div>
+            <div class="col-xs-4 text-center">{{convertSecondsToDate(post.timestamp.seconds)}}</div>
+            <div class="col-xs-4 pull-right text-right"><a href="#//blog/{{post.id}}">Lees meer</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body" markdown [data]="post.body">
+        </div>
     </div>
-    <div class="panel-body">
-      Er zijn voorlopig nog geen blog posts!
-    </div>
-  </div>
-
-  <div class="panel panel-default" *ngFor="let post of blogPage.items">
-    <div class="panel-heading">
-      <div class="col-xs-4"><h2 class="panel-title">{{post.title}}</h2></div>
-      <div class="col-xs-4 text-center">{{post.timestamp}}</div>
-      <div class="col-xs-4 pull-right text-right"><a href="#//blog/{{post.id}}">Lees meer</a></div>
-      <div class="clearfix"></div>
-    </div>
-    <div class="panel-body" markdown [data]="post.body">
-    </div>
-  </div>
-  <ul class="pager"  *ngIf="blogPage.pages !== 0">
-    <li class="previous" [ngClass]="{disabled:!blogPage.hasPrev}">
-      <a href="javascript:void(0)" (click)="setPage(blogPage.prev_num)">Vorige</a>
-    </li>
-    <li class="next" [ngClass]="{disabled:!blogPage.hasNext}">
-      <a href="javascript:void(0)" (click)="setPage(blogPage.next_num)">Volgende</a>
-    </li>
-  </ul>
 </div>

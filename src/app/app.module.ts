@@ -19,6 +19,10 @@ import {AgendaDetailComponent} from './agenda/detail/agenda.detail.component';
 import {HttpClientModule} from '@angular/common/http';
 import {VolleybalComponent} from './volleybal/volleybal.component';
 import {MarkdownModule} from 'ngx-markdown';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -53,6 +57,9 @@ const appRoutes: Routes = [
         BlogDetailComponent
     ],
     imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule,
+        AngularFireAuthModule,
         BrowserModule,
         FormsModule,
         HttpClientModule,

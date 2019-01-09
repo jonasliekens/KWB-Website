@@ -1,34 +1,30 @@
 import {Component, OnInit} from '@angular/core';
-import {AgendaService} from './agenda.service';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import * as moment from 'moment';
+import 'moment/locale/nl-be';
 
 @Component({
   templateUrl: './agenda.component.html',
-  providers: [AgendaService]
+  providers: []
 })
-export class AgendaComponent implements OnInit {
-  agendaPage: any;
-  loading = true;
-  currentPage = 1;
+export class AgendaComponent {
+  events: Observable<any[]>;
 
-  constructor(private agendaService: AgendaService) {
-    this.getEvents();
+  constructor(private db: AngularFirestore) {
+    this.events = this.db.collection('event').snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return {id, ...data};
+          });
+        })
+    );
   }
 
-  setPage(pageNr): void {
-    if ( pageNr != null ) {
-      this.currentPage = pageNr;
-      this.getEvents();
-    }
-  }
-
-  ngOnInit(): void {
-    this.getEvents();
-  }
-
-  private getEvents() {
-    this.agendaService.getEvents(this.currentPage).subscribe(
-      page => this.agendaPage = page,
-      err => console.log(err),
-      () => this.loading = false);
+  convertSecondsToDate(seconds: number): String {
+    return moment.unix(seconds).format('MM/DD/YYYY');
   }
 }

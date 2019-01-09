@@ -1,33 +1,39 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {BlogDetailService} from './blog.detail.service';
+import {AngularFirestore} from '@angular/fire/firestore';
+import * as moment from 'moment';
+import 'moment/locale/nl-be';
 
 @Component({
-  templateUrl: './blog.detail.component.html',
-  providers: [BlogDetailService]
+    templateUrl: './blog.detail.component.html',
+    providers: []
 })
 export class BlogDetailComponent implements OnInit, OnDestroy {
-  post: any;
-  loading = true;
-  private sub: any;
+    post: any;
+    private sub: any;
 
-  constructor(private blogDetailService: BlogDetailService,  private route: ActivatedRoute) {
-  }
+    constructor(private route: ActivatedRoute, private db: AngularFirestore) {
+    }
 
-  ngOnInit(): void {
-    this.sub = this.route.params.subscribe(params => {
-      this.getPost(+params['id']); // (+) converts string 'id' to a number
-    });
-  }
+    ngOnInit(): void {
+        this.sub = this.route.params.subscribe(params => {
+            this.getPost(params['id']);
+        });
+    }
 
-  getPost(id) {
-    this.blogDetailService.getPost(id).subscribe(
-      post => this.post = post,
-      err => console.log(err),
-      () => this.loading = false);
-  }
+    getPost(id: string) {
+        this.db.collection('/post').doc(id).ref.get().then(doc => {
+            if (doc.exists) {
+                this.post = doc.data();
+            }
+        });
+    }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
+    convertSecondsToDate(seconds: number): String {
+        return moment.unix(seconds).calendar();
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
 }

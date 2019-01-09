@@ -1,33 +1,31 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AgendaDetailService} from './agenda.detail.service';
 import {ActivatedRoute} from '@angular/router';
+import {AngularFirestore} from '@angular/fire/firestore';
+import * as moment from 'moment';
+import 'moment/locale/nl-be';
 
 @Component({
   templateUrl: './agenda.detail.component.html',
-  providers: [AgendaDetailService]
+  providers: []
 })
-export class AgendaDetailComponent implements OnInit, OnDestroy {
+export class AgendaDetailComponent implements OnInit {
   event: any;
   loading = true;
-  private sub: any;
 
-  constructor(private agendaDetailService: AgendaDetailService, private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private db: AngularFirestore) {
   }
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe(params => {
-      this.getEvent(+params['id']); // (+) converts string 'id' to a number
+    this.route.params.subscribe(params => {
+      this.db.collection('event').doc(params['id']).ref.get().then(doc => {
+        if (doc.exists) {
+          this.event = doc.data();
+        }
+      });
     });
   }
 
-  private getEvent(id) {
-    this.agendaDetailService.getEvent(id).subscribe(
-      event => this.event = event,
-      err => console.log(err),
-      () => this.loading = false);
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+  convertSecondsToDate(seconds: number): String {
+    return moment.unix(seconds).format('MM/DD/YYYY HH:mm');
   }
 }

@@ -2,9 +2,9 @@
   <p>Loading...</p>
 </div>
 
-<div class="container" *ngIf="!loading">
+<div class="container">
 
-  <div class="panel panel-default" *ngIf="agendaPage.pages === 0">
+  <div class="panel panel-default" *ngIf="(events | async)?.length === 0">
     <div class="panel-heading">
       <div class="panel-title">Geen activiteiten!</div>
       <div class="clearfix"></div>
@@ -14,10 +14,10 @@
     </div>
   </div>
 
-  <div class="panel panel-default" *ngFor="let event of agendaPage.items">
+  <div class="panel panel-default" *ngFor="let event of events | async">
     <div class="panel-heading">
       <div class="col-xs-4"><h2 class="panel-title">{{event.title}}</h2></div>
-      <div class="col-xs-4 text-center">{{event.date}}</div>
+      <div class="col-xs-4 text-center">{{convertSecondsToDate(event.start.seconds)}}</div>
       <div
         class="col-xs-4 pull-right text-right"><a href="#/activiteit/{{event.id}}">Details</a></div>
       <div class="clearfix"></div>
@@ -25,12 +25,4 @@
     <div class="panel-body" markdown [data]="event.description">
     </div>
   </div>
-  <ul class="pager" *ngIf="agendaPage.pages !== 0">
-    <li class="previous" [ngClass]="{disabled:!agendaPage.hasPrev}">
-      <a href="javascript:void(0)" (click)="setPage(agendaPage.prev_num)">Vorige</a>
-    </li>
-    <li class="next" [ngClass]="{disabled:!agendaPage.hasNext}">
-      <a href="javascript:void(0)" (click)="setPage(agendaPage.next_num)">Volgende</a>
-    </li>
-  </ul>
 </div>

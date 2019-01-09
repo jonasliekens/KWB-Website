@@ -1,8 +1,4 @@
-<div class="container" *ngIf="loading">
-  <p class="text-center">Loading...</p>
-</div>
-
-<div class="container" *ngIf="!loading">
+<div class="container">
 
   <h2>{{event.title}}</h2>
 
@@ -15,11 +11,13 @@
       <form class="form-horizontal">
         <div class="form-group">
           <label class="control-label col-sm-1" for="startsOn">Starts:</label>
-          <p id="startsOn" class="form-control-static col-sm-11">{{event.start}}</p>
+          <p id="startsOn"
+             class="form-control-static col-sm-11">{{convertSecondsToDate(event.start.seconds)}}</p>
         </div>
         <div class="form-group">
           <label class="control-label col-sm-1" for="endsOn">End:</label>
-          <p id="endsOn" class="form-control-static col-sm-11">{{event.end}}</p>
+          <p id="endsOn"
+             class="form-control-static col-sm-11">{{convertSecondsToDate(event.end.seconds)}}</p>
         </div>
         <div class="form-group">
           <label class="control-label col-sm-1" for="location">Location:</label>
