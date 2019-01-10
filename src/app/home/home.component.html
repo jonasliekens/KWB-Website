@@ -39,7 +39,7 @@
 </div>
 
 <div class="container">
-  <div class="panel panel-default" *ngIf="eventLoading">
+  <div class="panel panel-default" *ngIf="!nextEvent">
     <div class="panel-heading">
       <div class="panel-title pull-left">
         <strong>Volgende activiteit</strong>
@@ -47,11 +47,11 @@
       <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-      Loading...
+      Er zijn voorlopig geen toekomstige activiteiten!
     </div>
   </div>
 
-  <div class="panel panel-default" *ngIf="!eventLoading">
+  <div class="panel panel-default" *ngIf="nextEvent">
     <div class="panel-heading">
       <div class="panel-title pull-left">
         <strong>Volgende activiteit:</strong> {{ nextEvent.title }}
@@ -66,17 +66,17 @@
 </div>
 
 <div class="container">
-  <div class="panel panel-default" *ngIf="postLoading">
+  <div class="panel panel-default" *ngIf="!latestPost">
     <div class="panel-heading">
       <div class="panel-title pull-left"><strong>Laatste Nieuws</strong></div>
       <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-      Loading...
+      Momenteel is er geen nieuws.
     </div>
   </div>
 
-  <div class="panel panel-default" *ngIf="!postLoading">
+  <div class="panel panel-default" *ngIf="latestPost">
     <div class="panel-heading">
       <div class="panel-title pull-left"><strong>Laatste Nieuws</strong>: {{latestPost.title}}</div>
       <div class="clearfix"></div>

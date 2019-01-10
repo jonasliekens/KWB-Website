@@ -1,12 +1,26 @@
-<div class="container">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="col-xs-4"><h2 class="panel-title">{{post.title}}</h2></div>
-      <div class="col-xs-4 pull-right text-right">
-        {{convertSecondsToDate(post.timestamp.seconds)}}
-      </div>
-      <div class="clearfix"></div>
+<div class="container" *ngIf="!postLoading">
+    <div class="panel panel-default" *ngIf="post">
+        <div class="panel-heading">
+            <div class="col-xs-4"><h2 class="panel-title">{{post.title}}</h2></div>
+            <div class="col-xs-4 pull-right text-right">
+                {{convertSecondsToDate(post.timestamp.seconds)}}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body" markdown [data]="post.body"></div>
     </div>
-    <div class="panel-body" markdown [data]="post.body"></div>
-  </div>
+    <div class="panel panel-default" *ngIf="!post">
+        <div class="panel-heading">
+            <div class="col-xs-4"><h2 class="panel-title">Nieuwtje niet gevonden :(</h2></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">Het lijkt er op dat ons nieuwsje is verdwenen, of misschien
+            heb je een foute link gekregen?</div>
+    </div>
+</div>
+
+<div class="container" *ngIf="postLoading">
+    <div class="panel panel-default">
+        <div class="panel-body">Loading post...</div>
+    </div>
 </div>

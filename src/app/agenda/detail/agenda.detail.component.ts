@@ -10,7 +10,7 @@ import 'moment/locale/nl-be';
 })
 export class AgendaDetailComponent implements OnInit {
   event: any;
-  loading = true;
+  eventLoading = true;
 
   constructor(private route: ActivatedRoute, private db: AngularFirestore) {
   }
@@ -21,6 +21,7 @@ export class AgendaDetailComponent implements OnInit {
         if (doc.exists) {
           this.event = doc.data();
         }
+        this.eventLoading = false;
       });
     });
   }

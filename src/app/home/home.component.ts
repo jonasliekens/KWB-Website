@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HomeService} from './home.service';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
     templateUrl: './home.component.html',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
     postLoading = true;
 
 
-    constructor(private homeService: HomeService) {
+    constructor(private homeService: HomeService, private db: AngularFirestore) {
     }
 
     ngOnInit(): void {
@@ -21,18 +22,33 @@ export class HomeComponent implements OnInit {
     }
 
     private getNextEvent() {
-        this.homeService.getNextEvent().subscribe(
-            nextEvent => this.nextEvent = nextEvent,
-            err => console.log(err),
-            () => this.eventLoading = false
-        );
+        this.db.collection('/event').ref
+            .where('start', '>=', new Date())
+            .orderBy('start', 'asc')
+            .limit(1)
+            .get().then(doc => {
+            if (!doc.empty) {
+                let id = doc.docs[0].id;
+                let data = doc.docs[0].data();
+                this.nextEvent = {id, ...data};
+            } else {
+                this.nextEvent = null;
+            }
+        });
     }
 
     private getLatestPost() {
-        this.homeService.getLatestPosts().subscribe(
-            latestPost => this.latestPost = latestPost,
-            err => console.log(err),
-            () => this.postLoading = false
-        );
+        this.db.collection('/post').ref
+            .orderBy('timestamp', 'asc')
+            .limit(1)
+            .get().then(doc => {
+            if (!doc.empty) {
+                let id = doc.docs[0].id;
+                let data = doc.docs[0].data();
+                this.latestPost = {id, ...data};
+            } else {
+                this.latestPost = null;
+            }
+        });
     }
 }

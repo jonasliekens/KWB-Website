@@ -9,6 +9,7 @@ import 'moment/locale/nl-be';
     providers: []
 })
 export class BlogDetailComponent implements OnInit, OnDestroy {
+    postLoading = true;
     post: any;
     private sub: any;
 
@@ -26,6 +27,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
             if (doc.exists) {
                 this.post = doc.data();
             }
+            this.postLoading = false;
         });
     }
 
