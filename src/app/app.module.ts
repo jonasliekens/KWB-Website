@@ -1,13 +1,13 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {AboutComponent} from './about/about.component';
 import {BestuurComponent} from './bestuur/bestuur.component';
-import {BsDropdownModule, CarouselModule, CollapseModule} from 'ngx-bootstrap';
+import {BsDropdownModule, CarouselModule, CollapseModule, ModalModule} from 'ngx-bootstrap';
 import {InfoComponent} from './info/info.component';
 import {LidComponent} from './lid/lid.component';
 import {ProgrammaComponent} from './programma/programma.component';
@@ -23,6 +23,8 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AuthGuard} from './shared/auth.guard';
+import {AuthService} from './shared/auth.service';
 
 const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -62,7 +64,9 @@ const appRoutes: Routes = [
         AngularFireAuthModule,
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
+        ModalModule.forRoot(),
         BsDropdownModule.forRoot(),
         CollapseModule.forRoot(),
         CarouselModule.forRoot(),
@@ -75,7 +79,10 @@ const appRoutes: Routes = [
             }
         )
     ],
-    providers: [],
+    providers: [
+        AuthService,
+        AuthGuard
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

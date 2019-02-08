@@ -1,49 +1,104 @@
 <header role="banner">
-  <a href="#">
-    <img id="logo-main" src="assets/images/kwbgrasheide.png" class="center-block hidden-xs">
-  </a>
-  <nav class="navbar navbar-default">
-    <div class="container">
-      <div class="navbar-header">
-        <a href="#" class="navbar-brand visible-xs" href="#"><strong>KWB Grasheide</strong></a>
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                data-target="#navbar" aria-expanded="false" aria-controls="navbar"
-                (click)="isCollapsed = !isCollapsed">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse" [collapse]="isCollapsed">
-        <ul class="nav navbar-nav">
-          <li class="dropdown" dropdown>
-            <a href="javascript:void(0)" dropdownToggle class="dropdown-toggle">Over KWB <span
-              class="caret"></span></a>
-            <ul *dropdownMenu class="dropdown-menu">
-              <li><a href="#/info">Waar staan we voor</a></li>
-              <li><a href="#/about">KWB Grasheide</a></li>
-              <li><a href="#/bestuur">Bestuursploeg</a></li>
-              <li><a href="#/lidmaatschap">Lidmaatschap</a></li>
-            </ul>
-          </li>
-          <li><a href="#/blog">Blog</a></li>
-          <li class="dropdown" dropdown>
-            <a href="javascript:void(0)" class="dropdown-toggle" dropdownToggle>Activiteiten <span
-              class="caret"></span></a>
-            <ul class="dropdown-menu" *dropdownMenu>
-              <li><a href="#/activiteit">Agenda</a></li>
-              <li><a href="#/volleybal">Volleybal wedstrijden</a></li>
-            </ul>
-          </li>
-          <li><a href="#/raak">Eigen raak</a></li>
-        </ul>
+    <a href="#">
+        <img id="logo-main" src="assets/images/kwbgrasheide.png" class="center-block hidden-xs">
+    </a>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand visible-xs" href="#"><strong>KWB Grasheide</strong></a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar" aria-expanded="false" aria-controls="navbar"
+                        (click)="isCollapsed = !isCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse" [collapse]="isCollapsed">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" dropdown>
+                        <a href="javascript:void(0)" dropdownToggle class="dropdown-toggle">Over KWB
+                            <span
+                                    class="caret"></span></a>
+                        <ul *dropdownMenu class="dropdown-menu">
+                            <li><a href="#/info">Waar staan we voor</a></li>
+                            <li><a href="#/about">KWB Grasheide</a></li>
+                            <li><a href="#/bestuur">Bestuursploeg</a></li>
+                            <li><a href="#/lidmaatschap">Lidmaatschap</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#/blog">Blog</a></li>
+                    <li class="dropdown" dropdown>
+                        <a href="javascript:void(0)" class="dropdown-toggle" dropdownToggle>Activiteiten
+                            <span
+                                    class="caret"></span></a>
+                        <ul class="dropdown-menu" *dropdownMenu>
+                            <li><a href="#/activiteit">Agenda</a></li>
+                            <li><a href="#/volleybal">Volleybal wedstrijden</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#/raak">Eigen raak</a></li>
+                </ul>
 
-        <ul class="nav navbar-nav navbar-right">
-          <li><a target="_blank" href="http://kwb.diamondstreet.be">Login</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </nav>
+                <ul class="nav navbar-nav navbar-right">
+                    <li *ngIf="!authenticated">
+                        <a [routerLink]="" (click)="openModal(loginTemplate)">Login</a>
+                    </li>
+                    <li *ngIf="authenticated">
+                        <a [routerLink]="" (click)="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+    <ng-template #loginTemplate>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Login</h4>
+            <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger" *ngIf="loginErrorMsg">
+                <strong>Oh no!</strong> {{loginErrorMsg}}
+            </div>
+            <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" role="form">
+                <div class="form-group"
+                     [ngClass]="{'has-error': f.email.touched && f.email.errors }">
+                    <label for="email">Email</label>
+                    <input id="email" type="text" formControlName="email"
+                           class="form-control"
+                           placeholder="Email"
+                    />
+                    <div *ngIf="f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.touched && f.email.errors.required" class="text-danger">
+                            Email is required
+                        </div>
+                        <div *ngIf="f.email.touched && f.email.errors.email" class="text-danger">
+                            Please enter a valid email address
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"
+                     [ngClass]="{'has-error': f.password.touched && f.password.errors }">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" formControlName="password"
+                           class="form-control"
+                           placeholder="Password"
+                    />
+                    <div *ngIf="f.password.errors" class="invalid-feedback">
+                        <div class="text-danger"
+                             *ngIf="f.password.touched && f.password.errors.required">
+                            Password is required
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+    </ng-template>
 </header>
+
 <router-outlet></router-outlet>
