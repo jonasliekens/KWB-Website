@@ -68,7 +68,6 @@ export class AdminAgendaComponent {
                 });
             } else {
                 this.db.collection('event').add(event).then(() => {
-                    console.log('event added');
                     this.eventForm.reset();
                     this.modalRef.hide();
                 }).catch(error => {
