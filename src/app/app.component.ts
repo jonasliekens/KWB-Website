@@ -2,6 +2,7 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -9,7 +10,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    title = 'app works!';
     public isCollapsed = true;
     modalRef: BsModalRef;
     loginForm: FormGroup;
@@ -19,7 +19,8 @@ export class AppComponent implements OnInit {
     constructor(
         private authService: AngularFireAuth,
         private modalService: BsModalService,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private router: Router) {
 
     }
 
@@ -60,6 +61,7 @@ export class AppComponent implements OnInit {
     logout() {
         this.authService.auth.signOut().then(() => {
             this.authenticated = false;
+            this.router.navigate(['/home']);
         }).catch(() => {
             console.log('Something went wrong signing out...');
         });

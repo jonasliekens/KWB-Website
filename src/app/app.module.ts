@@ -7,7 +7,13 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {AboutComponent} from './about/about.component';
 import {BestuurComponent} from './bestuur/bestuur.component';
-import {BsDropdownModule, CarouselModule, CollapseModule, ModalModule} from 'ngx-bootstrap';
+import {
+    BsDatepickerModule,
+    BsDropdownModule,
+    CarouselModule,
+    CollapseModule,
+    ModalModule
+} from 'ngx-bootstrap';
 import {InfoComponent} from './info/info.component';
 import {LidComponent} from './lid/lid.component';
 import {ProgrammaComponent} from './programma/programma.component';
@@ -25,6 +31,9 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AuthGuard} from './shared/auth.guard';
 import {AuthService} from './shared/auth.service';
+import {AdminBlogComponent} from './admin/blog/admin.blog.component';
+import {AdminAgendaComponent} from './admin/agenda/admin.agenda.component';
+import {NgxMaskModule} from 'ngx-mask';
 
 const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -39,7 +48,9 @@ const appRoutes: Routes = [
     {path: 'volleybal', component: VolleybalComponent},
     {path: 'raak', component: RaakComponent},
     {path: 'blog', component: BlogComponent},
-    {path: 'blog/:id', component: BlogDetailComponent}
+    {path: 'blog/:id', component: BlogDetailComponent},
+    {path: 'admin/blog', component: AdminBlogComponent, canActivate: [AuthGuard]},
+    {path: 'admin/agenda', component: AdminAgendaComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -49,6 +60,8 @@ const appRoutes: Routes = [
         BestuurComponent,
         InfoComponent,
         LidComponent,
+        AdminBlogComponent,
+        AdminAgendaComponent,
         AboutComponent,
         AgendaComponent,
         AgendaDetailComponent,
@@ -68,6 +81,8 @@ const appRoutes: Routes = [
         HttpClientModule,
         ModalModule.forRoot(),
         BsDropdownModule.forRoot(),
+        BsDatepickerModule.forRoot(),
+        NgxMaskModule.forRoot(),
         CollapseModule.forRoot(),
         CarouselModule.forRoot(),
         MarkdownModule.forRoot(),

@@ -1,0 +1,126 @@
+<div class="container">
+    <h3>Beheer Activiteiten</h3>
+    <table class="table table-hover">
+        <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Actions</th>
+        </tr>
+        <tr *ngFor="let event of events | async">
+            <td>{{event.title}}</td>
+            <td>{{event.location}}</td>
+            <td>{{convertSecondsToDate(event.start.seconds)}}</td>
+            <td>{{convertSecondsToDate(event.end.seconds)}}</td>
+            <td>
+                <a [routerLink]="" class="btn btn-default btn-xs"
+                   (click)="openEditEventModal(eventFormModalTemplate, event.id)">
+                    <i class="glyphicon glyphicon-edit"></i></a>
+                <a [routerLink]="" class="btn btn-danger btn-xs"
+                   (click)="openConfirmationModal(deleteConfirmation, event.id)">
+                    <i class="glyphicon glyphicon-remove"></i></a>
+            </td>
+        </tr>
+    </table>
+
+    <button type="button" class="btn btn-primary" (click)="openModal(eventFormModalTemplate)">
+        <i class="glyphicon glyphicon-plus"></i> Create Event
+    </button>
+
+    <ng-template #eventFormModalTemplate>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Create Event</h4>
+            <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" role="form">
+                <div class="form-group"
+                     [ngClass]="{'has-error': ef.title.touched && ef.title.errors }">
+                    <input id="title" type="text" formControlName="title"
+                           class="form-control"
+                           placeholder="Title"
+                    />
+                    <div *ngIf="ef.title.errors" class="invalid-feedback">
+                        <div *ngIf="ef.title.touched && ef.title.errors.required"
+                             class="text-danger">
+                            Title is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"
+                     [ngClass]="{'has-error': ef.location.touched && ef.location.errors }">
+                    <input id="location" type="text" formControlName="location"
+                           class="form-control"
+                           placeholder="Location"
+                    />
+                    <div *ngIf="ef.location.errors" class="invalid-feedback">
+                        <div *ngIf="ef.location.touched && ef.location.errors.required"
+                             class="text-danger">
+                            Location is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"
+                     [ngClass]="{'has-error': ef.start.touched && ef.start.errors }">
+                    <input id="start" type="text" formControlName="start"
+                           class="form-control"
+                           placeholder="Starts On (dd/mm/yyyy hh:mm)"
+                           mask='00/00/0000 00:00'
+                    />
+                    <div *ngIf="ef.start.errors" class="invalid-feedback">
+                        <div *ngIf="ef.start.touched && ef.start.errors.required"
+                             class="text-danger">
+                            Start date and time is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"
+                     [ngClass]="{'has-error': ef.end.touched && ef.end.errors }">
+                    <input id="end" type="text" formControlName="end"
+                           class="form-control"
+                           placeholder="Ends On (dd/mm/yyyy hh:mm)"
+                           mask='00/00/0000 00:00'
+                    />
+                    <div *ngIf="ef.end.errors" class="invalid-feedback">
+                        <div *ngIf="ef.end.touched && ef.end.errors.required" class="text-danger">
+                            End date and time is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"
+                     [ngClass]="{'has-error': ef.description.touched && ef.description.errors }">
+                    <textarea id="description" type="text" formControlName="description"
+                              class="form-control"
+                              placeholder="Description"
+                    ></textarea>
+                    <div *ngIf="ef.description.errors" class="invalid-feedback">
+                        <div *ngIf="ef.description.touched && ef.description.errors.required"
+                             class="text-danger">
+                            Description is required
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" markdown [data]="ef.description.value"></div>
+                </div>
+
+                <button type="submit" class="btn btn-default" [disabled]="!eventForm.valid">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template #deleteConfirmation>
+        <div class="modal-body text-center">
+            <p>Are you sure you want to delete the event?</p>
+            <button type="button" class="btn btn-danger" (click)="confirmDelete()">Yes</button>
+            <button type="button" class="btn btn-primary" (click)="declineDelete()">No</button>
+        </div>
+    </ng-template>
+</div>

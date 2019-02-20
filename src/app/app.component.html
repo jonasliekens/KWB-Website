@@ -39,6 +39,15 @@
                         </ul>
                     </li>
                     <li><a href="#/raak">Eigen raak</a></li>
+                    <li class="dropdown" dropdown *ngIf="authenticated">
+                        <a href="javascript:void(0)" class="dropdown-toggle" dropdownToggle>Admin
+                            <span
+                                    class="caret"></span></a>
+                        <ul class="dropdown-menu" *dropdownMenu>
+                            <li><a href="#/admin/agenda">Activiteiten</a></li>
+                            <li><a href="#/admin/blog">Blog</a></li>
+                        </ul>
+                    </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
