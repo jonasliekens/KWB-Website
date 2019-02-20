@@ -13,7 +13,7 @@ export class AgendaComponent {
   events: Observable<any[]>;
 
   constructor(private db: AngularFirestore) {
-    this.events = this.db.collection('event').snapshotChanges().pipe(
+    this.events = this.db.collection('event', ref => ref.orderBy('start', 'asc')).snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {
             const data = a.payload.doc.data();

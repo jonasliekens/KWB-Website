@@ -20,7 +20,7 @@ export class AdminBlogComponent {
     constructor(private db: AngularFirestore,
                 private modalService: BsModalService,
                 private formBuilder: FormBuilder) {
-        this.posts = this.db.collection('post').snapshotChanges().pipe(
+        this.posts = this.db.collection('post', ref => ref.orderBy('timestamp', 'desc')).snapshotChanges().pipe(
             map(actions => {
                 return actions.map(a => {
                     const data = a.payload.doc.data();

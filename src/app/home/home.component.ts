@@ -9,9 +9,6 @@ import {AngularFirestore} from '@angular/fire/firestore';
 export class HomeComponent implements OnInit {
     nextEvent: any;
     latestPost: any;
-    eventLoading = true;
-    postLoading = true;
-
 
     constructor(private homeService: HomeService, private db: AngularFirestore) {
     }
@@ -39,7 +36,7 @@ export class HomeComponent implements OnInit {
 
     private getLatestPost() {
         this.db.collection('/post').ref
-            .orderBy('timestamp', 'asc')
+            .orderBy('timestamp', 'desc')
             .limit(1)
             .get().then(doc => {
             if (!doc.empty) {

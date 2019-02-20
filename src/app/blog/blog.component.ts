@@ -13,7 +13,7 @@ export class BlogComponent {
     posts: Observable<any[]>;
 
     constructor(private db: AngularFirestore) {
-        this.posts = this.db.collection('/post').snapshotChanges().pipe(
+        this.posts = this.db.collection('post', ref => ref.orderBy('timestamp', 'desc')).snapshotChanges().pipe(
             map(actions => {
                 return actions.map(a => {
                     const data = a.payload.doc.data();

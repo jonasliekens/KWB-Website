@@ -20,7 +20,7 @@ export class AdminAgendaComponent {
     constructor(private db: AngularFirestore,
                 private modalService: BsModalService,
                 private formBuilder: FormBuilder) {
-        this.events = this.db.collection('event').snapshotChanges().pipe(
+        this.events = this.db.collection('event', ref => ref.orderBy('start')).snapshotChanges().pipe(
             map(actions => {
                 return actions.map(a => {
                     const data = a.payload.doc.data();
