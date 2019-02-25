@@ -1,16 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {HomeService} from './home.service';
 import {AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
     templateUrl: './home.component.html',
-    providers: [HomeService]
+    providers: []
 })
 export class HomeComponent implements OnInit {
     nextEvent: any;
     latestPost: any;
 
-    constructor(private homeService: HomeService, private db: AngularFirestore) {
+    constructor(private db: AngularFirestore) {
     }
 
     ngOnInit(): void {
