@@ -34,6 +34,7 @@ import {AuthService} from './shared/auth.service';
 import {AdminBlogComponent} from './admin/blog/admin.blog.component';
 import {AdminAgendaComponent} from './admin/agenda/admin.agenda.component';
 import {NgxMaskModule} from 'ngx-mask';
+import {KomedyComponent} from './komedy/komedy.component';
 
 const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     {path: 'blog', component: BlogComponent},
     {path: 'blog/:id', component: BlogDetailComponent},
     {path: 'admin/blog', component: AdminBlogComponent, canActivate: [AuthGuard]},
-    {path: 'admin/agenda', component: AdminAgendaComponent, canActivate: [AuthGuard]}
+    {path: 'admin/agenda', component: AdminAgendaComponent, canActivate: [AuthGuard]},
+    {path: 'komedy-kaffee', component: KomedyComponent}
 ];
 
 @NgModule({
@@ -68,6 +70,7 @@ const appRoutes: Routes = [
         ProgrammaComponent,
         VolleybalComponent,
         RaakComponent,
+        KomedyComponent,
         BlogComponent,
         BlogDetailComponent
     ],
